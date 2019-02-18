@@ -11,8 +11,8 @@ public class PageService {
 
     private final PageScraper scraper;
 
-    public PageService(PageScraper scraper) {
-        this.scraper = scraper;
+    public PageService() {
+        this.scraper = new PageScraper();
     }
 
     public List<Product> extractProductsFromPage(String url) throws IOException {
