@@ -25,27 +25,48 @@ public class PageScraper {
 
     public Product getProductFromUrl(String url) throws IOException {
         Document document = Jsoup.connect(url).get();
+
+        String title = extractProductTitle(document);
+        String description = extractProductDescription(document);
+        BigDecimal pricePerUnit = extractProductPricePerUnit(document);
+        Integer kcalPer100Grams = extractKcalPer100Grams(document);
+
+        return new ProductBuilder()
+                .withTitle(title)
+                .withDescription(description)
+                .withPricePerUnit(pricePerUnit)
+                .withkcalPer100grams(kcalPer100Grams)
+                .build();
+    }
+
+    private String extractProductTitle(Document document) {
         Elements productTitleElement = document.select("div.productTitleDescriptionContainer > h1");
-        String productTitle = productTitleElement.text();
+        return productTitleElement.text();
+    }
+
+    private String extractProductDescription(Document document) {
         Elements productDescriptionElements = document.select("h3:contains(Description) + div.productText > p");
         String productDescription = null;
         if(productDescriptionElements != null){
             productDescription = productDescriptionElements.first().text();
         }
+        return productDescription;
+    }
+
+    private BigDecimal extractProductPricePerUnit(Document document){
         Elements productPricePerUnitElement = document.getElementsByAttributeValue("class", "pricePerUnit");
         String productPricePerUnit = productPricePerUnitElement.first().text();
         productPricePerUnit = productPricePerUnit.split("/")[0].substring(1);
+        return new BigDecimal(productPricePerUnit);
+    }
+
+    private Integer extractKcalPer100Grams(Document document){
         Elements nutritionTables = document.select("table.NutritionTable");
         String productKcalPer100Grams = null;
         if(nutritionTables.size() >= 1){
             productKcalPer100Grams = nutritionTables.first().select("td:contains(kcal)").text();
             productKcalPer100Grams = productKcalPer100Grams.split("k")[0];
         }
-        return new ProductBuilder()
-                .withTitle(productTitle)
-                .withDescription(productDescription)
-                .withPricePerUnit(new BigDecimal(productPricePerUnit))
-                .withkcalPer100grams(Integer.valueOf(productKcalPer100Grams))
-                .build();
+        return productKcalPer100Grams != null ? Integer.valueOf(productKcalPer100Grams) : null;
     }
 }
