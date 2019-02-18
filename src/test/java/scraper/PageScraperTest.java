@@ -45,4 +45,14 @@ public class PageScraperTest {
         assertThat(product.getDescription()).isEqualTo("by Sainsbury's strawberries");
 
     }
+
+    @Test
+    public void getProductFromUrl_whenProductDescriptionHasMultipleLines_onlyExtractFirstLineOfDescription() throws IOException {
+        String url = "https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/shop/gb/groceries/" +
+                "berries-cherries-currants/sainsburys-mixed-berry-twin-pack-200g-7696255-p-44.html";
+
+        Product product = scraper.getProductFromUrl(url);
+
+        assertThat(product.getDescription()).isEqualTo("Mixed Berries");
+    }
 }
