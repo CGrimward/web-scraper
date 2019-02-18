@@ -55,4 +55,14 @@ public class PageScraperTest {
 
         assertThat(product.getDescription()).isEqualTo("Mixed Berries");
     }
+
+    @Test
+    public void getProductFromUrl_whenProductHasNoNutritionalValues_thenKcalPer100GramsIsNull() throws IOException {
+        String url = "https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/shop/gb/groceries/" +
+                "berries-cherries-currants/sainsburys-british-cherry---strawberry-pack-600g.html";
+
+        Product product = scraper.getProductFromUrl(url);
+
+        assertThat(product.getKcalPer100grams()).isNull();
+    }
 }
