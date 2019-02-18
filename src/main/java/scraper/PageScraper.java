@@ -45,7 +45,7 @@ public class PageScraper {
     }
 
     private String extractProductDescription(Document document) {
-        Elements productDescriptionElements = document.select("h3:contains(Description) + div.productText > p");
+        Elements productDescriptionElements = document.select("h3:contains(Description) + div > p");
         String productDescription = null;
         if(productDescriptionElements != null){
             productDescription = productDescriptionElements.first().text();
