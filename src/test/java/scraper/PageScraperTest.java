@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class PageScraperTest {
 
@@ -18,5 +19,12 @@ public class PageScraperTest {
         List<String> productLinks = scraper.getProductLinksFromUrl(url);
 
         assertThat(productLinks).hasSize(17);
+    }
+
+    @Test
+    public void getProductLinksFromUrl_whenInvalidUrl_thenThrowException() {
+        assertThatThrownBy(() -> scraper.getProductLinksFromUrl("NotAValidUrl"))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Malformed URL: NotAValidUrl");
     }
 }
