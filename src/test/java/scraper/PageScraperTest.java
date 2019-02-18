@@ -1,8 +1,10 @@
 package scraper;
 
+import domain.Product;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,7 +16,8 @@ public class PageScraperTest {
 
     @Test
     public void getProductLinksFromUrl_whenValidUrl_thenReturnValidProductUrls() throws IOException {
-        String url = "https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/webapp/wcs/stores/servlet/gb/groceries/berries-cherries-currants6039.html";
+        String url = "https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/webapp/wcs/stores/" +
+                "servlet/gb/groceries/berries-cherries-currants6039.html";
 
         List<String> productLinks = scraper.getProductLinksFromUrl(url);
 
@@ -26,5 +29,20 @@ public class PageScraperTest {
         assertThatThrownBy(() -> scraper.getProductLinksFromUrl("NotAValidUrl"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("Malformed URL: NotAValidUrl");
+    }
+
+
+    @Test
+    public void getProductFromUrl_whenValidUrl_thenReturnCompleteProduct() throws IOException {
+        String url = "https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/shop/" +
+                "gb/groceries/berries-cherries-currants/sainsburys-british-strawberries-400g.html";
+
+        Product product = scraper.getProductFromUrl(url);
+
+        assertThat(product.getTitle()).isEqualTo("Sainsbury's Strawberries 400g");
+        assertThat(product.getPricePerUnit()).isEqualTo(new BigDecimal(1.75));
+        assertThat(product.getKcalPer100grams()).isEqualTo(33);
+        assertThat(product.getDescription()).isEqualTo("by Sainsbury's strawberries");
+
     }
 }
