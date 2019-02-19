@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,4 +29,11 @@ public class TotalServiceTest {
         assertThat(total.getVat()).isEqualTo(new BigDecimal(4.00).setScale(2));
 
     }
+
+    @Test
+    public void calculateTotalFromProducts_givenNoProducts_returnsZeroTotal() {
+        Total total = totalService.calculateTotalFromProducts(Collections.emptyList());
+
+        assertThat(total.getGross()).isEqualTo(new BigDecimal(0.00).setScale(2));
+        assertThat(total.getVat()).isEqualTo(new BigDecimal(0.00).setScale(2));    }
 }
