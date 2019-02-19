@@ -1,7 +1,7 @@
-package service;
+package uk.co.sainsburys.exercise.service;
 
-import domain.Product;
-import domain.Total;
+import uk.co.sainsburys.exercise.domain.Product;
+import uk.co.sainsburys.exercise.domain.Total;
 import org.junit.Test;
 
 import java.math.BigDecimal;

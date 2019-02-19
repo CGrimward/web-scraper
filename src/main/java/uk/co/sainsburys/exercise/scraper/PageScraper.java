@@ -1,10 +1,12 @@
-package scraper;
+package uk.co.sainsburys.exercise.scraper;
 
-import domain.Product;
-import domain.ProductBuilder;
+import uk.co.sainsburys.exercise.domain.Product;
+import uk.co.sainsburys.exercise.domain.ProductBuilder;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -13,6 +15,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class PageScraper {
+
+    private final Logger LOGGER = LoggerFactory.getLogger(PageScraper.class);
 
     public List<String> getProductLinksFromUrl(String url) throws IOException {
         Document document = Jsoup.connect(url).get();
@@ -48,7 +52,7 @@ public class PageScraper {
         Elements productDescriptionElements = document.select("h3:contains(Description) + div > p");
         String productDescription = null;
         if(productDescriptionElements != null){
-            productDescription = productDescriptionElements.first().text();
+            productDescription = productDescriptionElements.select("p:matches(^(?!\\s*$).+)").text();
         }
         return productDescription;
     }
@@ -62,11 +66,17 @@ public class PageScraper {
 
     private Integer extractKcalPer100g(Document document){
         Elements nutritionTables = document.select("table.NutritionTable");
-        String productKcalPer100g = null;
+        String productKcalPer100Grams = null;
         if(nutritionTables.size() >= 1){
-            productKcalPer100g = nutritionTables.first().getElementsByTag("tr").get(2).selectFirst("td").text();
-            productKcalPer100g = productKcalPer100g.split("k")[0];
+            productKcalPer100Grams = nutritionTables.first().getElementsByTag("tr").get(2).selectFirst("td").text();
+            productKcalPer100Grams = productKcalPer100Grams.split("k")[0];
         }
-        return Objects.nonNull(productKcalPer100g) ? Integer.valueOf(productKcalPer100g) : null;
+
+        try {
+            return Objects.nonNull(productKcalPer100Grams) ? Integer.valueOf(productKcalPer100Grams) : null;
+        } catch(NumberFormatException e){
+            LOGGER.error("Unable to parse calorie value : {}", productKcalPer100Grams);
+            return null;
+        }
     }
 }

@@ -1,6 +1,6 @@
-package scraper;
+package uk.co.sainsburys.exercise.scraper;
 
-import domain.Product;
+import uk.co.sainsburys.exercise.domain.Product;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -74,5 +74,15 @@ public class PageScraperTest {
         Product product = scraper.getProductFromUrl(url);
 
         assertThat(product.getKcalPer100g()).isEqualTo(52);
+    }
+
+    @Test
+    public void getProductFromUrl_whenProductFirstLineOfDescriptionIsBlank_getFirstNonBlankLine() throws IOException {
+        String url = "https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/shop/gb/groceries" +
+                "/berries-cherries-currants/sainsburys-blackcurrants-150g.html";
+
+        Product product = scraper.getProductFromUrl(url);
+
+        assertThat(product.getDescription()).isEqualTo("Union Flag");
     }
 }

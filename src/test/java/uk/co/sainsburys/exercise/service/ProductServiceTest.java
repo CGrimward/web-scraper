@@ -1,12 +1,12 @@
-package service;
+package uk.co.sainsburys.exercise.service;
 
-import domain.Product;
+import uk.co.sainsburys.exercise.domain.Product;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import scraper.PageScraper;
+import uk.co.sainsburys.exercise.scraper.PageScraper;
 
 import java.io.IOException;
 import java.math.BigDecimal;

@@ -1,4 +1,4 @@
-package domain;
+package uk.co.sainsburys.exercise.domain;
 
 import java.math.BigDecimal;
 
