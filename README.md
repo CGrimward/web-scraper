@@ -18,7 +18,7 @@ The tests in the application consist of unit and 'integration' tests. To run the
 
 The dependencies required to run the application are :
 
-1. JRE 1.8
+1. Java 1.8
 
 All other dependencies should be packaged into the application
 
