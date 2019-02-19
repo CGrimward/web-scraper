@@ -6,13 +6,13 @@ public class Product {
 
     private String title;
     private BigDecimal pricePerUnit;
-    private Integer kcalPer100grams;
+    private Integer kcalPer100g;
     private String description;
 
-    public Product(String title, String description, BigDecimal pricePerUnit, Integer calories) {
+    public Product(String title, String description, BigDecimal pricePerUnit, Integer kcalPer100g) {
         this.title = title;
         this.description = description;
-        this.kcalPer100grams = calories;
+        this.kcalPer100g = kcalPer100g;
         this.pricePerUnit = pricePerUnit;
     }
 
@@ -32,12 +32,12 @@ public class Product {
         this.pricePerUnit = pricePerUnit;
     }
 
-    public Integer getKcalPer100grams() {
-        return kcalPer100grams;
+    public Integer getKcalPer100g() {
+        return kcalPer100g;
     }
 
-    public void setKcalPer100grams(Integer kcalPer100grams) {
-        this.kcalPer100grams = kcalPer100grams;
+    public void setKcalPer100g(Integer kcalPer100g) {
+        this.kcalPer100g = kcalPer100g;
     }
 
     public String getDescription() {

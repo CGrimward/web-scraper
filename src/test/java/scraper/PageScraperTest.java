@@ -41,7 +41,7 @@ public class PageScraperTest {
 
         assertThat(product.getTitle()).isEqualTo("Sainsbury's Strawberries 400g");
         assertThat(product.getPricePerUnit()).isEqualTo(new BigDecimal(1.75));
-        assertThat(product.getKcalPer100grams()).isEqualTo(33);
+        assertThat(product.getKcalPer100g()).isEqualTo(33);
         assertThat(product.getDescription()).isEqualTo("by Sainsbury's strawberries");
 
     }
@@ -63,6 +63,16 @@ public class PageScraperTest {
 
         Product product = scraper.getProductFromUrl(url);
 
-        assertThat(product.getKcalPer100grams()).isNull();
+        assertThat(product.getKcalPer100g()).isNull();
+    }
+
+    @Test
+    public void getProductFromUrl_whenProductHasDifferentTableStructure_thenStillRetrieveKcal() throws IOException {
+        String url = "https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/shop/gb/groceries/" +
+                "berries-cherries-currants/sainsburys-cherry-punnet-200g-468015-p-44.html";
+
+        Product product = scraper.getProductFromUrl(url);
+
+        assertThat(product.getKcalPer100g()).isEqualTo(52);
     }
 }

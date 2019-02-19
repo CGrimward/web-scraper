@@ -9,6 +9,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class PageScraper {
@@ -28,13 +29,13 @@ public class PageScraper {
         String title = extractProductTitle(document);
         String description = extractProductDescription(document);
         BigDecimal pricePerUnit = extractProductPricePerUnit(document);
-        Integer kcalPer100Grams = extractKcalPer100Grams(document);
+        Integer kcalPer100Grams = extractKcalPer100g(document);
 
         return new ProductBuilder()
                 .withTitle(title)
                 .withDescription(description)
                 .withPricePerUnit(pricePerUnit)
-                .withkcalPer100grams(kcalPer100Grams)
+                .withkcalPer100g(kcalPer100Grams)
                 .build();
     }
 
@@ -59,13 +60,13 @@ public class PageScraper {
         return new BigDecimal(productPricePerUnit);
     }
 
-    private Integer extractKcalPer100Grams(Document document){
+    private Integer extractKcalPer100g(Document document){
         Elements nutritionTables = document.select("table.NutritionTable");
-        String productKcalPer100Grams = null;
+        String productKcalPer100g = null;
         if(nutritionTables.size() >= 1){
-            productKcalPer100Grams = nutritionTables.first().select("td:contains(kcal)").text();
-            productKcalPer100Grams = productKcalPer100Grams.split("k")[0];
+            productKcalPer100g = nutritionTables.first().getElementsByTag("tr").get(2).selectFirst("td").text();
+            productKcalPer100g = productKcalPer100g.split("k")[0];
         }
-        return productKcalPer100Grams != null ? Integer.valueOf(productKcalPer100Grams) : null;
+        return Objects.nonNull(productKcalPer100g) ? Integer.valueOf(productKcalPer100g) : null;
     }
 }
