@@ -1,4 +1,4 @@
-# web-uk.co.sainsburys.exercise.scraper
+# web-scraper
 
 ### How to run
 
