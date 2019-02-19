@@ -35,5 +35,6 @@ public class TotalServiceTest {
         Total total = totalService.calculateTotalFromProducts(Collections.emptyList());
 
         assertThat(total.getGross()).isEqualTo(new BigDecimal(0.00).setScale(2));
-        assertThat(total.getVat()).isEqualTo(new BigDecimal(0.00).setScale(2));    }
+        assertThat(total.getVat()).isEqualTo(new BigDecimal(0.00).setScale(2));
+    }
 }
