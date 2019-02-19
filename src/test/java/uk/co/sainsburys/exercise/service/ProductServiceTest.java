@@ -27,7 +27,7 @@ public class ProductServiceTest {
     private ProductService pageService;
 
     @Test
-    public void extractProductsFromUrl() throws IOException {
+    public void extractProductsFromUrl_givenProductUrlsAreFound_thenReturnsListOfProductsFromUrls() throws IOException {
         List<String> productUrls = Arrays.asList("ProductUrlOne", "ProductUrlTwo", "ProductUrlThree");
         Product productOne = new Product("ProductOne", "ProductOne", new BigDecimal(1.00), 1);
         Product productTwo = new Product("ProductTwo", "ProductTwo", new BigDecimal(2.00), 2);
