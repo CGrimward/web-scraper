@@ -18,13 +18,13 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PageServiceTest {
+public class ProductServiceTest {
 
     @Mock
     private PageScraper pageScraper;
 
     @InjectMocks
-    private PageService pageService;
+    private ProductService pageService;
 
     @Test
     public void extractProductsFromUrl() throws IOException {

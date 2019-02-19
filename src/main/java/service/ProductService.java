@@ -7,11 +7,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PageService {
+public class ProductService {
 
     private final PageScraper scraper;
 
-    public PageService() {
+    public ProductService() {
         this.scraper = new PageScraper();
     }
 
