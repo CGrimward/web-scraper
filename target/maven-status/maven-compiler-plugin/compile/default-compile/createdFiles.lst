@@ -1,0 +1,8 @@
+uk/co/sainsburys/exercise/domain/Result.class
+uk/co/sainsburys/exercise/service/TotalService.class
+uk/co/sainsburys/exercise/Application.class
+uk/co/sainsburys/exercise/domain/ProductBuilder.class
+uk/co/sainsburys/exercise/scraper/PageScraper.class
+uk/co/sainsburys/exercise/service/ProductService.class
+uk/co/sainsburys/exercise/domain/Product.class
+uk/co/sainsburys/exercise/domain/Total.class

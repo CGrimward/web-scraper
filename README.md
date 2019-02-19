@@ -2,9 +2,11 @@
 
 ### How to run
 
-Using a terminal window run the following command
+1.Locate the pre-built jar file in the target directory
 
-`Java -jar tech-exercise-{version number}-jar-with-dependencies.jar {url to scrape}`
+2.Using a terminal window run the following command
+
+`Java -jar tech-exercise-1.0-jar-with-dependencies.jar {url to scrape}`
 
 replace `{url to scrape}` with the url of the page you intend to scrape for products;
 
